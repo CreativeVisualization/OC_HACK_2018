@@ -1,6 +1,6 @@
 // OC2018 Tama Art University
 
-size(770, 960,P2D);
+size(770, 960);
 background(255);
 
 noFill();
