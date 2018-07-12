@@ -1,10 +1,137 @@
+import processing.awt.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.Font;
+
+float r1, g1, b1;
+float r2, g2, b2;
+float r3, g3, b3;
+float r4, g4, b4;
+float r5, g5, b5;
+String moji;
+
 void setup() {
-  noStroke();
   size(770, 960);
   blendMode(BLEND);
-  colorMode(RGB, 150, 150, 150);
-  beginShape(); 
-  fill(random(0, 255), random(0, 255), random(0, 255));
+  colorMode(RGB, 150, 150, 180);
+  frameRate(10);
+
+
+  JPanel panel = new JPanel();
+  BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+
+  Canvas canvas = (Canvas)surface.getNative();
+  JLayeredPane layeredPane = (JLayeredPane)canvas.getParent().getParent();
+
+
+  panel.setLayout(layout);
+  panel.add(new JLabel("何か入力してください"));
+  JTextField text1 = new JTextField();
+  panel.add(text1);
+
+  int r = JOptionPane.showConfirmDialog(
+    null, // オーナーウィンドウ
+    panel, // メッセージ
+    "#OC_HACK_2018", // ウィンドウタイトル
+    JOptionPane.OK_CANCEL_OPTION, // オプション（ボタンの種類）
+    JOptionPane.INFORMATION_MESSAGE);  // メッセージタイプ（アイコンの種類）
+  println(r);
+  println(text1.getText());
+  moji= text1.getText();// loadStrings("text.txt");
+
+
+
+  //Generate Object Instance of Inner Class for ActionListener
+  // ActionListenerインタフェースを実装するインナークラス(後述)の
+  // オブジェクトインスタンスの生成
+  MyButtonListener myButtonListener = new MyButtonListener();
+
+  // インナークラスに作ったTextField登録関数を使って，TextFieldを登録
+
+
+  // ボタンを作って，場所とサイズを決める
+  JButton button1 = new JButton("Change color1");
+  button1.setBounds(10, 30, 110, 20);
+  JButton button2 = new JButton("Change color2");
+  button2.setBounds(10, 60, 110, 20);
+  JButton button3 = new JButton("Change color3");
+  button3.setBounds(10, 90, 110, 20);
+  JButton button4 = new JButton("Change color4");
+  button4.setBounds(10, 120, 110, 20);
+  JButton button5 = new JButton("Change color5");
+  button5.setBounds(10, 150, 110, 20);
+  JButton button6 = new JButton("Draw start");
+  button6.setBounds(10, 180, 90, 20); 
+  JButton button7 = new JButton("Draw stop");
+  button7.setBounds(10, 210, 90, 20);
+  JButton button8 = new JButton("My HACK save");
+  button8.setBounds(10, 240, 120, 20);
+
+
+  // このボタンの「アクションコマンド」文字列を指定する．
+  // ここでは"button1_push"という文字列を指定している
+  button1.setActionCommand("button1_push");
+  button2.setActionCommand("button2_push");
+  button3.setActionCommand("button3_push");
+  button4.setActionCommand("button4_push");
+  button5.setActionCommand("button5_push");
+  button6.setActionCommand("button6_push");
+  button7.setActionCommand("button7_push");
+  button8.setActionCommand("button8_push");
+
+
+  //ボタンを，ActionListenerを実装したクラスのオブジェクトに登録する
+  button1.addActionListener(myButtonListener);
+  button2.addActionListener(myButtonListener);
+  button3.addActionListener(myButtonListener);
+  button4.addActionListener(myButtonListener);
+  button5.addActionListener(myButtonListener);
+  button6.addActionListener(myButtonListener);
+  button7.addActionListener(myButtonListener);
+  button8.addActionListener(myButtonListener);
+
+
+  // Paneにテキストフィールドとボタンを追加
+
+  layeredPane.add(button1);
+  layeredPane.add(button2);
+  layeredPane.add(button3);
+  layeredPane.add(button4);
+  layeredPane.add(button5);
+  layeredPane.add(button6);
+  layeredPane.add(button7);
+  layeredPane.add(button8);
+
+  r1 = random(0, 255);//そと
+  g1 = random(0, 255);
+  b1 = random(0, 255);
+
+  r2 =random(0, 255);//なか
+  g2 = random(0, 255);
+  b2 = random(0, 255);
+
+  r3 =random(0, 255);//さんかく
+  g3 = random(0, 255);
+  b3 = random(0, 255);
+
+  r4=random(0, 255);//もじ
+  g4 = random(0, 255);
+  b4 = random(0, 255);
+
+  r5=random(0, 255);//もじ
+  g5 = random(0, 255);
+  b5 = random(0, 255);
+}
+
+
+void draw() {
+
+
+
+  beginShape();
+  fill(r1, g1, b1, 180);
+  noStroke();
   vertex(618.69, 417.09);
   vertex(728.15, 237.57);
   vertex(509.81, 292.39);
@@ -25,9 +152,12 @@ void setup() {
   vertex(602.29, 954.9);  
   vertex(615.81, 595.92);
   vertex(770.0, 631.68); 
-  endShape(CLOSE); 
-  fill(255, 0, random(0, 255));
+  endShape(CLOSE);
+
+
   beginShape();
+  fill(r2, g2, b2, 150);
+  noStroke();
   vertex(593.85, 564.37); 
   vertex(583.25, 894.16); 
   vertex(467.13, 738.62);
@@ -49,74 +179,33 @@ void setup() {
   vertex(592.2, 418.0);
   vertex(720.41, 598.34);
   endShape(CLOSE);
-  fill(random(0, 225), random(0, 255), random(0, 255), 80);
-  rect(0, 0, 100, 100);
-  fill(random(0, 225), random(0, 255), random(0, 255), 160);
-  beginShape();
-  vertex(446.16, 0);
-  vertex(392.02, 67.39);
-  vertex(271.06, 324.86);
-  vertex(484.25, 269.77);
-  vertex(392.2, 418.0);
-  vertex(520.41, 598.34);
-  vertex(393.85, 564.37);
-  vertex(383.25, 894.16);
-  vertex(402.29, 954.9);
-  vertex(415.81, 595.92);
-  vertex(570.0, 631.68);
-  vertex(418.69, 417.09);
-  vertex(528.15, 237.57);
-  vertex(309.81, 292.39);
-  vertex(446.16, 0.0);
-  endShape(CLOSE);
-  fill(random(0, 225), random(0, 255), random(0, 255), 120);
-  beginShape();
-  vertex(246.16, 0);
-  vertex(192.02, 67.39);
-  vertex(71.06, 324.86);
-  vertex(284.25, 269.77);
-  vertex(192.2, 418.0);
-  vertex(320.41, 598.34);
-  vertex(193.85, 564.37);
-  vertex(183.25, 894.16);
-  vertex(202.29, 954.9);
-  vertex(215.81, 595.92);
-  vertex(370.0, 631.68);
-  vertex(218.69, 417.09);
-  vertex(328.15, 237.57);
-  vertex(109.81, 292.39);
-  vertex(246.16, 0.0);
-  endShape(CLOSE);
-  fill(#421b69, 130);
-  beginShape();
-  vertex(446.16, 0);
-  vertex(392.02, 67.39);
-  vertex(271.06, 324.86);
-  vertex(484.25, 269.77);
-  vertex(392.2, 418.0);
-  vertex(520.41, 598.34);
-  vertex(393.85, 564.37);
-  vertex(383.25, 894.16);
-  vertex(402.29, 954.9);
-  vertex(415.81, 595.92);
-  vertex(570.0, 631.68);
-  vertex(418.69, 417.09);
-  vertex(528.15, 237.57);
-  vertex(309.81, 292.39);
-  vertex(446.16, 0.0);
-  endShape(CLOSE);
-}
-void draw() {
-  if (frameCount == 1) {
-    for (int i =0; i<350; i++) {
-      pushMatrix() ;
-      translate(random(width), random(height));
-      scale(random(1, 8));
-      fill(random(0, 255), random(0, 255), random(0, 255), random(0, 100));
-      triangle(random(0, 40), random(0, 40), random(0, 55), random(0, 20), random(0, 25), random(0, 70));
-      popMatrix() ;
-    }
-    fill(#FFFFFF);
+
+  for (int i =0; i<70; i++) {
+    pushMatrix() ;
+    translate(random(width), random(height));
+    scale(random(1, 8));
+    fill(r3, g3, b3, 120);
+    triangle(random(0, 40), random(0, 40), random(0, 55), 
+      random(0, 20), random(0, 25), random(0, 70));
+    popMatrix() ;
+  }
+
+  PFont font = createFont("Futura-Bold", 100, true);
+  textFont(font);  // 選択したフォントを指定する
+  
+
+  for (int i = 0; i < 30; i ++) {       
+    fill(r5, g5, b5, 150);
+    textSize(random(10, 100));
+    textAlign(CENTER);
+    text(moji, random(width), random(height));
+
+    textSize(32);
+    text("#OC_HACK_2018", 10, 30);
+    fill(100);
+
+
+    fill(r4,g4,b4);
     beginShape();
     vertex(770.0, 631.68);
     vertex(618.69, 417.09);
@@ -140,10 +229,63 @@ void draw() {
     vertex(602.29, 954.9);
     vertex(615.81, 595.92);
     vertex(770.0, 631.68);
-    vertex(770, 960);
-    vertex(0, 960);
-    vertex(0, 0);
-    vertex(770, 0);
+    vertex(900-65, 1100-70);
+    vertex(0-65, 1100-70);
+    vertex(0-65, 0-70);
+    vertex(900-65, 0-70);
+    vertex(900-65, 1100-70);
     endShape(CLOSE);
+  }
+}
+
+
+
+// ActionListenerを使うためのインナークラス
+class MyButtonListener implements ActionListener {
+
+  // Pointer of textField added JLayeredPane
+  // スケッチの大元のTextFieldへの参照ポインタ変数
+
+
+  // その参照をsetup関数から登録するための登録関数
+
+  public void actionPerformed(ActionEvent e) {
+    String actionCommand = e.getActionCommand();
+    if (actionCommand.equals("button1_push")) {
+      loop();
+      r1 = random(0, 255);
+      g1 = random(0, 255);
+      b1 = random(0, 255);
+    } 
+    if (actionCommand.equals("button2_push")) {
+      loop();
+      r2 = random(0, 255);
+      g2= random(0, 255);
+      b2= random(0, 255);
+    }
+    if (actionCommand.equals("button3_push")) {
+      r3= random(0, 255);
+      g3= random(0, 255);
+      b3= random(0, 255);
+    }
+    if (actionCommand.equals("button4_push")) {
+      r4 = random(0, 255);
+      g4= random(0, 255);
+      b4= random(0, 255);
+    }
+    if (actionCommand.equals("button5_push")) {
+      r5 = random(0, 255);
+      g5= random(0, 255);
+      b5= random(0, 255);
+    }
+    if (actionCommand.equals("button6_push")) {
+      loop();
+    }
+    if (actionCommand.equals("button7_push")) {
+      noLoop();
+    }
+    if (actionCommand.equals("button8_push")) {
+      saveFrame("data/####.png");
+    }
   }
 }
